@@ -18,7 +18,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Student>> Students()
+        public async Task<IEnumerable<Student>> Get()
         {
             var students = await _dbContext.Students.AsNoTracking().ToListAsync();
             return students;
