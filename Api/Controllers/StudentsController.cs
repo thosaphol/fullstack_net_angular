@@ -68,5 +68,24 @@ namespace Api.Controllers
 
             return BadRequest("Unable to deleted student");
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Edit(int id, Student student)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var studentFromDb = await _dbContext.Students.FindAsync(id);
+            if (studentFromDb is null) return BadRequest("Student not found");
+
+            studentFromDb.Name = student.Name;
+            studentFromDb.Address = student.Address;
+            studentFromDb.PhoneNumber = student.PhoneNumber;
+            studentFromDb.Emal = student.Emal;
+            var result = await _dbContext.SaveChangesAsync();
+            if (result > 0) return Ok("Student successfully updated");
+
+            return BadRequest("Unable to update data");
+
+        }
     }
 }
