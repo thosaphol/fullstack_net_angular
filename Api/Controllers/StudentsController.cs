@@ -23,5 +23,25 @@ namespace Api.Controllers
             var students = await _dbContext.Students.AsNoTracking().ToListAsync();
             return students;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Student student)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _dbContext.AddAsync<Student>(student);
+            var result = await _dbContext.SaveChangesAsync();
+            if (result > 0)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+
+        }
     }
 }
