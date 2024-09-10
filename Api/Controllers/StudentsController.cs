@@ -55,5 +55,18 @@ namespace Api.Controllers
 
             return Ok(student);
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student = await _dbContext.Students.FindAsync(id);
+            if (student is null) return NotFound();
+
+            _dbContext.Remove(student);
+            var result = await _dbContext.SaveChangesAsync();
+            if (result > 0) return Ok("Student deleted");
+
+            return BadRequest("Unable to deleted student");
+        }
     }
 }
