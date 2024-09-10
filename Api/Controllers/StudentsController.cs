@@ -80,7 +80,7 @@ namespace Api.Controllers
             studentFromDb.Name = student.Name;
             studentFromDb.Address = student.Address;
             studentFromDb.PhoneNumber = student.PhoneNumber;
-            studentFromDb.Emal = student.Emal;
+            studentFromDb.Email = student.Email;
             var result = await _dbContext.SaveChangesAsync();
             if (result > 0) return Ok("Student successfully updated");
 
