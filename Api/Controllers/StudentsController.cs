@@ -43,5 +43,17 @@ namespace Api.Controllers
             return BadRequest();
 
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Student>> Get(int id)
+        {
+            var student = await _dbContext.Students.FindAsync(id);
+            if (student is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(student);
+        }
     }
 }
